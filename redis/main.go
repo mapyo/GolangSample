@@ -9,18 +9,18 @@ const GeoKey = "geo_sample"
 
 var locations = []redis.GeoLocation{
 	{
-		Name: "Tokyo Tower",
-		Latitude: 35.658582,
+		Name:      "Tokyo Tower",
+		Latitude:  35.658582,
 		Longitude: 139.745464,
 	},
 	{
-		Name: "SkyTree",
-		Latitude: 35.710033,
+		Name:      "SkyTree",
+		Latitude:  35.710033,
 		Longitude: 139.810716,
 	},
 	{
-		Name: "Yokohama Marine Tower",
-		Latitude: 35.443938,
+		Name:      "Yokohama Marine Tower",
+		Latitude:  35.443938,
 		Longitude: 139.650941,
 	},
 }
@@ -42,7 +42,7 @@ func main() {
 		fmt.Println(res, err)
 	}
 
-	query := redis.GeoRadiusQuery{ Radius: 10, Unit: "km", Sort: "ASC"}
+	query := redis.GeoRadiusQuery{Radius: 10, Unit: "km", Sort: "ASC"}
 
 	res, err := client.GeoRadius(GeoKey, 139.766247, 35.68129, &query).Result()
 	fmt.Println(res, err)
