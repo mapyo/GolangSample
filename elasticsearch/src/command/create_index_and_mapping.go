@@ -14,4 +14,3 @@ var createIndexAndMappingCommand = cli.Command{
 func createIndexAndMapping(c *cli.Context) {
 	fmt.Println("createIndexAndMapping!!!")
 }
-

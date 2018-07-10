@@ -14,4 +14,3 @@ var searchCommand = cli.Command{
 func search(c *cli.Context) {
 	fmt.Println("search!!!")
 }
-

@@ -3,7 +3,7 @@ package main // import "github.com/mapyo/GolangSample/elasticsearch"
 import (
 	"github.com/urfave/cli"
 	"os"
-	"github.com/mapyo/GolangSample/src/command"
+	"github.com/mapyo/GolangSample/elasticsearch/src/command"
 )
 
 func main() {
@@ -15,4 +15,3 @@ func main() {
 	app.Commands = command.Commands
 	app.Run(os.Args)
 }
-

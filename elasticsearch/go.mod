@@ -1,4 +1,4 @@
-module github.com/mapyo/GolangSample
+module github.com/mapyo/GolangSample/elasticsearch
 
 require (
 	github.com/olivere/elastic v0.0.0-20180626153000-d06c9338b70f
