@@ -1,3 +1,2 @@
 github.com/aws/aws-lambda-go v1.2.0 h1:2f0pbAKMNNhvOkjI9BCrwoeIiduSTlYpD0iKEN1neuQ=
 github.com/aws/aws-lambda-go v1.2.0/go.mod h1:zUsUQhAUjYzR8AuduJPCfhBuKWUaDbQiPOG+ouzmE1A=
-github.com/aws/aws-lambda-go/events v0.0.0-20180628161845-3574a030467c/go.mod h1:G7mAYYxgmS0lVkHyy2hEOLQCFB0DlQFTMLWggykrydY=
