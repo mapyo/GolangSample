@@ -1,4 +1,4 @@
-package main // import "github.com/mapyo/GolangSample/sam-app"
+package main // import "github.com/mapyo/GolangSample/sam-app
 
 import (
 	"errors"
