@@ -1,24 +1,38 @@
 package main
 
 import (
+	"fmt"
+	"sync"
 	"time"
-	"log"
 )
 
-func heavyFunc(s string, second time.Duration, ch chan string) {
-	time.Sleep(second * time.Second)
-	log.Printf("hello %s", s)
-	ch <- "finish"
+func doSomething(s string) {
+	time.Sleep(2 * time.Second)
+	fmt.Println(s)
 }
 
 func main() {
-	ch1 := make(chan string)
-	ch2 := make(chan string)
+	size := 11
+	hoges := make([]string, size)
 
-	go heavyFunc("world", 3, ch1)
-	go heavyFunc("world2", 3, ch2)
+	for i := 0; i < size; i++ {
+		hoges[i] = fmt.Sprintf("hoge%d", i)
+	}
 
-	<-ch1
-	log.Println("hoge")
-	<-ch2
+	limit := make(chan int, 10)
+
+	var wg sync.WaitGroup
+	for _, v := range hoges {
+		wg.Add(1)
+		go func(v string) {
+			limit <- 1
+
+			defer wg.Done()
+			doSomething(v)
+
+			<-limit
+		}(v)
+	}
+
+	wg.Wait()
 }
