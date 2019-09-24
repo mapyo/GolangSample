@@ -47,6 +47,20 @@ func errMultierrNilSample() {
 	fmt.Println("------------")
 }
 
+func errMultierrAllNilSample() {
+	var err error
+	var err2 error
+	err = multierr.Combine(err, err2)
+
+	fmt.Println("------------")
+	fmt.Println("errMultierrAllNilSample")
+	fmt.Println("------------")
+	fmt.Println(err)
+	fmt.Println("------------")
+	fmt.Printf("%+v\n", err)
+	fmt.Println("------------")
+}
+
 func errXerrorsNilSample() {
 	var err error
 	err = xerrors.Errorf("second error: %w", nil)
@@ -66,4 +80,5 @@ func main() {
 
 	errMultierrSample()
 	errMultierrNilSample()
+	errMultierrAllNilSample()
 }
