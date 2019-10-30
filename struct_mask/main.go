@@ -49,8 +49,8 @@ func (t TagSample) GoString() string {
 
 func BuildMaskGoString(s interface{}, filter func(structName string, structField reflect.StructField) bool) string {
 	var result string
+	var hasOutput bool
 
-	// struct名の取得
 	st := reflect.Indirect(reflect.ValueOf(s))
 	structName := st.Type().Name()
 
@@ -70,19 +70,24 @@ func BuildMaskGoString(s interface{}, filter func(structName string, structField
 			fieldValue = reflect.Indirect(fieldValue)
 		}
 
-		var subResult string
+		var fieldResult string
 		if fieldValue.Kind() == reflect.Struct {
-			subResult = BuildMaskGoString(fieldValue.Interface(), filter)
+			hasOutput = true
+			fieldResult = BuildMaskGoString(fieldValue.Interface(), filter)
 		} else {
 			if filter(structName, field) {
-				subResult = field.Name + ": " + fieldValue.String() + ", "
+				hasOutput = true
+				fieldResult = field.Name + ": " + fieldValue.String() + ", "
 			}
 		}
 
-		result = result + subResult
+		result = result + fieldResult
 	}
 
 	result = result + "}"
+	if !hasOutput {
+		return ""
+	}
 	return result
 }
 
@@ -126,7 +131,8 @@ func main() {
 	human := Human{"replaceValue", "nameValue"}
 	sampleRequest := SampleRequest{SampleId: "10", Human: &human, XXX_sample: "hoge"}
 
-	rs := RequestMasker{sampleRequest, whiteListFilter}
+	//rs := RequestMasker{sampleRequest, whiteListFilter}
+	rs := RequestMasker{sampleRequest, blackListFilter}
 
 	fmt.Printf("%#v\n", sampleRequest)
 	fmt.Printf("%#v\n", rs)
