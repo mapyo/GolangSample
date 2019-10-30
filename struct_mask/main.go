@@ -48,13 +48,13 @@ func (t TagSample) GoString() string {
 }
 
 func BuildMaskGoString(s interface{}, filter func(structName string, structField reflect.StructField) bool) string {
-	var result string
+	var result = make([]byte, 0, 100)
 	var hasOutput bool
 
 	st := reflect.Indirect(reflect.ValueOf(s))
 	structName := st.Type().Name()
 
-	result = fmt.Sprintf("%s{", structName)
+	result = append(result, fmt.Sprintf("%s{", structName)...)
 
 	for i := 0; i < st.NumField(); i++ {
 		var (
@@ -81,14 +81,14 @@ func BuildMaskGoString(s interface{}, filter func(structName string, structField
 			}
 		}
 
-		result = result + fieldResult
+		result = append(result, fieldResult...)
 	}
 
-	result = result + "}"
+	result = append(result, "}"...)
 	if !hasOutput {
 		return ""
 	}
-	return result
+	return string(result)
 }
 
 func (r RequestMasker) GoString() string {
