@@ -1,12 +1,39 @@
-package main // import "github.com/mapyo/GolangSample/GeoJson"
+package main
 
 import (
-	"github.com/paulmach/go.geo"
 	"fmt"
+	"github.com/paulmach/go.geo"
+	"github.com/paulmach/orb/geojson"
 )
 
 func main() {
 	lineStringSample()
+	parseGeoJSON()
+}
+
+func parseGeoJSON() {
+	rawFeatureJSON := []byte(`
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [ 100, 0 ],
+        [ 101, 0 ],
+        [ 101, 1 ],
+        [ 100, 1 ],
+        [ 100, 0 ]
+      ]
+    ]
+  }
+}`)
+	fc1, err := geojson.UnmarshalFeature(rawFeatureJSON)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("failed parse geojson")
+	}
+	fmt.Printf("%+v\n", fc1)
 }
 
 func lineStringSample() {
